@@ -1,22 +1,19 @@
 VolunteerInRomania::Application.routes.draw do
   resources :events
-
-
   resources :favorites
-
-
   resources :participates
-
-
   resources :profiles
-
-
   resources :organizations
-
-
   resources :users
+    
+    match 'organizations/:fb_id/show_by_fb_id', to: 'organizations#show_by_fb_id', :via => :get, action: 'show_by_fb_id'
+    match 'organizations/:profile_id/show_by_profile_id', to: 'organizations#show_by_profile_id', :via => :get, action: 'show_by_profile_id'
+    match 'organizations/:id/profile/:profile', to: 'organizations#show_same_profile', :via => :get, action: 'show_same_profile'
+    match 'organizations/:user_id/show_favorites', to: 'organizations#show_favorites', :via => :get, action: 'show_favorites'
 
+    match 'favorites/:user_id/show_favorites', to: 'favorites#show_favorites', :via => :get, action: 'show_favorites'
 
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

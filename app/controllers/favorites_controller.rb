@@ -1,4 +1,11 @@
 class FavoritesController < ApplicationController
+  
+  def show_favorites
+    @favorite  = Favorite.find_by_user_id(params[:user_id])
+    @all = @favorite.show_favorites({:user_id => params[:user_id]})
+    respond_with @all
+  end
+    
   # GET /favorites
   # GET /favorites.json
   def index
