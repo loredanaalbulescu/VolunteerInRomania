@@ -38,7 +38,7 @@ class FavoritesController < ApplicationController
     # POST /favorites.json
     def create
         @favorite = Favorite.new(params[:favorite])
-        @same = Favorite.find_by_user_id_and_band_id(@favorite.user_id, @favorite.band_id)
+        @same = Favorite.find_by_user_id_and_organization_id(@favorite.user_id, @favorite.organization_id)
         if @same == nil
             @favorite.save
         end
@@ -49,7 +49,7 @@ class FavoritesController < ApplicationController
     # PUT /favorites/1.json
     def update
         @favorite = Favorite.find(params[:id])
-        @band.update_attributes(params[:favorite])
+        @organization.update_attributes(params[:favorite])
         respond_with @favorite
     end
     
