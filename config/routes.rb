@@ -12,6 +12,12 @@ VolunteerInRomania::Application.routes.draw do
     match 'organizations/:user_id/show_favorites', to: 'organizations#show_favorites', :via => :get, action: 'show_favorites'
 
     match 'favorites/:user_id/show_favorites', to: 'favorites#show_favorites', :via => :get, action: 'show_favorites'
+    
+    
+    match 'events/:organization_id/show_by_organization_id', to: 'events#show_by_organization_id', :via => :get, action: 'show_by_organization_id'
+    match 'events/:user_id/show_participates', to: 'events#show_participates', :via => :get, action: 'show_participates'
+    match 'events/:user_id/show_participates_past', to: 'events#show_participates_past', :via => :get, action: 'show_participates_past'
+    match 'events/:user_id/show_participates_future', to: 'events#show_participates_future', :via => :get, action: 'show_participates_future'
 
     
   # The priority is based upon order of creation:

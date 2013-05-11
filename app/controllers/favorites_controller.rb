@@ -1,90 +1,63 @@
 class FavoritesController < ApplicationController
-  
-  def show_favorites
-    @favorite  = Favorite.find_by_user_id(params[:user_id])
-    @all = @favorite.show_favorites({:user_id => params[:user_id]})
-    respond_with @all
-  end
+    # GET /favorites
+    # GET /favorites.json
+    respond_to :html, :json
     
-  # GET /favorites
-  # GET /favorites.json
-  def index
-    @favorites = Favorite.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @favorites }
+    def index
+        @favorites = Favorite.all
+        respond_with @favorites
     end
-  end
-
-  # GET /favorites/1
-  # GET /favorites/1.json
-  def show
-    @favorite = Favorite.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @favorite }
+    
+    def show_favorites
+        @favorite  = Favorite.find_by_user_id(params[:user_id])
+        @all = @favorite.show_favorites({:user_id => params[:user_id]})
+        respond_with @all
     end
-  end
-
-  # GET /favorites/new
-  # GET /favorites/new.json
-  def new
-    @favorite = Favorite.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @favorite }
+    
+    # GET /favorites/1
+    # GET /favorites/1.json
+    def show
+        @favorite = Favorite.find(params[:id])
+        respond_with @favorite
     end
-  end
-
-  # GET /favorites/1/edit
-  def edit
-    @favorite = Favorite.find(params[:id])
-  end
-
-  # POST /favorites
-  # POST /favorites.json
-  def create
-    @favorite = Favorite.new(params[:favorite])
-
-    respond_to do |format|
-      if @favorite.save
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully created.' }
-        format.json { render json: @favorite, status: :created, location: @favorite }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
-      end
+    
+    # GET /favorites/new
+    # GET /favorites/new.json
+    def new
+        @favorite = Favorite.new
+        respond_with @favorite
     end
-  end
-
-  # PUT /favorites/1
-  # PUT /favorites/1.json
-  def update
-    @favorite = Favorite.find(params[:id])
-
-    respond_to do |format|
-      if @favorite.update_attributes(params[:favorite])
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
-      end
+    
+    # GET /favorites/1/edit
+    def edit
+        @favorite = Favorite.find(params[:id])
+        respond_with @favorite
     end
-  end
-
-  # DELETE /favorites/1
-  # DELETE /favorites/1.json
-  def destroy
-    @favorite = Favorite.find(params[:id])
-    @favorite.destroy
-
-    respond_to do |format|
-      format.html { redirect_to favorites_url }
-      format.json { head :no_content }
+    
+    # POST /favorites
+    # POST /favorites.json
+    def create
+        @favorite = Favorite.new(params[:favorite])
+        @same = Favorite.find_by_user_id_and_band_id(@favorite.user_id, @favorite.band_id)
+        if @same == nil
+            @favorite.save
+        end
+        respond_with @favorite
     end
-  end
+    
+    # PUT /favorites/1
+    # PUT /favorites/1.json
+    def update
+        @favorite = Favorite.find(params[:id])
+        @band.update_attributes(params[:favorite])
+        respond_with @favorite
+    end
+    
+    # DELETE /favorites/1
+    # DELETE /favorites/1.json
+    def destroy
+        @favorite = Favorite.find(params[:id])
+        @favorite.destroy
+        respond_with @favorite 
+    end
 end
