@@ -15,9 +15,15 @@ VolunteerInRomania::Application.routes.draw do
     
     
     match 'events/:organization_id/show_by_organization_id', to: 'events#show_by_organization_id', :via => :get, action: 'show_by_organization_id'
+    #for user show past and future events where he'll attend
     match 'events/:user_id/show_participates', to: 'events#show_participates', :via => :get, action: 'show_participates'
     match 'events/:user_id/show_participates_past', to: 'events#show_participates_past', :via => :get, action: 'show_participates_past'
     match 'events/:user_id/show_participates_future', to: 'events#show_participates_future', :via => :get, action: 'show_participates_future'
+    
+     #for organization show past and future events he added
+    match 'events/:organization_id/show_future_events', to: 'events#show_future_events', :via => :get, action: 'show_future_events'
+    match 'events/:organization_id/show_past_events', to: 'events#show_past_events', :via => :get, action: 'show_past_events'
+
 
     
   # The priority is based upon order of creation:

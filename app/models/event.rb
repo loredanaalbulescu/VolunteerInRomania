@@ -20,4 +20,12 @@ class Event < ActiveRecord::Base
         Event.joins('JOIN participates ON events.id = participates.event_id').where('participates.user_id = \'' + options[:user_id]+'\' and events.date_time >= \''+Date.today.to_s+'\'')
     end
     
+    def show_future_events(options={})
+        Event.where("organization_id = ? and date_time >= ?", options[:organization_id], Date.today.to_s)   
+    end
+    
+    def show_past_events(options={})
+        Event.where("organization_id = ? and date_time <= ?", options[:organization_id], Date.today.to_s)
+    end
+    
 end

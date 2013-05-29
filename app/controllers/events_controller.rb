@@ -30,7 +30,18 @@ respond_to :html, :json
         @events = @event.show_participates_future({:user_id => params[:user_id]})
         respond_with @events
     end
+    
+     def show_future_events(options={})
+        @event  = Event.last()
+        @events = @event.show_future_events({:organization_id => params[:organization_id]})
+       respond_with @events
+    end
 
+    def show_past_events(options={})
+        @event  = Event.last()
+        @events = @event.show_past_events({:organization_id => params[:organization_id]})
+       respond_with @events
+    end
     
     
     
