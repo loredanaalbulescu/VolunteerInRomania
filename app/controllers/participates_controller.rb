@@ -32,7 +32,7 @@ class ParticipatesController < ApplicationController
     # POST /participates.json
     def create
         @participate = Participate.new(params[:participate])
-        @same_fb_id = Participate.find_by_user_id_and_concert_id(@participate.user_id, @participate.concert_id)
+        @same_fb_id = Participate.find_by_user_id_and_event_id(@participate.user_id, @participate.event_id)
       if @same_fb_id == nil
          @participate.save
      end
